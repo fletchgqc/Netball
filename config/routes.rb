@@ -1,6 +1,17 @@
 Netball::Application.routes.draw do
-  resources :players
-
+  resources :players do
+    member do
+      get 'schedule'
+      post 'scheduled'
+    end
+  end
+  
+  resources :fixtures
+  
+  match 'overview' => 'overview#index'
+  
+  root :to => 'overview#index'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

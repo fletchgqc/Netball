@@ -5,10 +5,18 @@
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <link href='http://fonts.googleapis.com/css?family=Crafty+Girls' rel='stylesheet' type='text/css'>
 </head>
 <body>
-
-<%= yield %>
-
+  <div id="page">
+    <div id="header">
+      <a href="/"><%= image_tag("netball-shot.jpg", :id => "logo", :alt => "Netball shot logo") %></a>
+      <a href="/"><%= image_tag("valencia-netball.png", :id => "title", :alt => "Valencia Netball") %></a>
+    </div>
+    
+    <div id="content">
+      <%= yield %>
+    </div>
+  </div>
 </body>
 </html>
