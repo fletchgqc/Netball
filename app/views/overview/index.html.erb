@@ -1,0 +1,35 @@
+<h1>Valencian Netball Team Schedule</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <% @fixtures.each do |fixture| %>
+      <th><%= link_to fixture.to_s, edit_fixture_path(fixture) %></th>
+    <% end %>
+  </tr>
+
+<% @players.each do |player| %>
+  <tr>
+    <td><%= link_to player.name, schedule_player_path(player) %></td>
+    <% @fixtures.each do |fixture| %>
+      <% attendances = player.attendances.where("fixture_id = ?", fixture.id)
+      if attendances.empty? %>
+        <td class="unsure">Unsure
+      <% else %>
+      <td class="<%= attendances[0].will.downcase %>"><%= attendances[0].will %>
+      <% end %>
+    </td>
+    <% end %>
+  </tr>
+<% end %>
+<tr>
+  <td>Total</td>
+  <% @fixtures.each do |fixture| %>
+  <td><%= fixture.attendances.where('will = ?', 'Yes').count %></td>
+  <% end %>
+</tr>
+</table>
+<p>Click on a player's name to modify her schedule.</p>
+<div id="admin">
+  <p><%= link_to 'New Player', new_player_path %> <%= link_to 'New Fixture', new_fixture_path %></p>
+</div>
