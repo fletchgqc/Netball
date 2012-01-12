@@ -4,7 +4,9 @@ class Player < ActiveRecord::Base
   
   validates :name, :presence => true,
                     :length => { :minimum => 2, :maximum => 30 }
-            
+
+  default_scope :order => 'name ASC'
+              
   def to_s
     name
   end
