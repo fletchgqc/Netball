@@ -1,24 +1,25 @@
 <h1>Modify Schedule for <%= @player %></h1>
 
-<%= form_tag(:action => "scheduled") %>
-<%= hidden_field_tag(:id, @player.id) %>
-
-<% @fixtures.each do |fixture| %>
-  <% attendances = @player.attendances.where("fixture_id = ?", fixture.id)
-  if attendances.empty?
-    will = 'Unsure'
-  else
-    will = attendances[0].will
-  end
-%>
-  <div class="field">
-    <p><%= fixture.to_s %><br/>
-    <%= select_tag("fixtures[#{fixture.id}]", options_for_select(['Yes', 'No', 'Unsure'], will)) %></p>
-  </div>
-<% end %>
+<%= form_tag(:action => "scheduled") do -%>
+  <%= hidden_field_tag(:id, @player.id) %>
+  
+  <% @fixtures.each do |fixture| %>
+    <% attendances = @player.attendances.where("fixture_id = ?", fixture.id)
+    if attendances.empty?
+      will = 'Unsure'
+    else
+      will = attendances[0].will
+    end
+  %>
+    <div class="field">
+      <p><%= fixture.to_s %><%= fixture.cancelled ? ' (cancelled)' : '' %><br/>
+      <%= select_tag("fixtures[#{fixture.id}]", options_for_select(['Yes', 'No', 'Unsure'], will)) %></p>
+    </div>
+  <% end %>
   <div class="actions">
     <input type="submit" value="Save schedule"/>
   </div>
+<% end -%>
 
 <div id="admin">
   <%= link_to 'Back', '/' %>

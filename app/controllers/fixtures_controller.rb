@@ -32,6 +32,26 @@ class FixturesController < ApplicationController
     end
   end
 
+  def cancel
+    @fixture = Fixture.find(params[:id])
+
+    if @fixture.update_attributes(:cancelled => true)
+      redirect_to '/', notice: 'Fixture has been cancelled.'
+    else
+      redirect_to '/', notice: 'Error cancelling fixture.'
+    end
+  end
+  
+  def uncancel
+    @fixture = Fixture.find(params[:id])
+
+    if @fixture.update_attributes(:cancelled => false)
+      redirect_to '/', notice: 'Fixture has been uncancelled.'
+    else
+      redirect_to '/', notice: 'Error uncancelling fixture.'
+    end
+  end
+
   # DELETE /fixtures/1
   def destroy
     @fixture = Fixture.find(params[:id])

@@ -4,7 +4,7 @@
   <tr>
     <th></th>
     <% @fixtures.each do |fixture| %>
-      <th><%= link_to fixture.to_s, edit_fixture_path(fixture) %></th>
+    <th <% if fixture.cancelled? %>class="cancelled"<% end %>><%= link_to fixture.to_s, edit_fixture_path(fixture) %></th>
     <% end %>
   </tr>
 
@@ -12,11 +12,15 @@
   <tr>
     <td><%= link_to player.name, schedule_player_path(player) %></td>
     <% @fixtures.each do |fixture| %>
-      <% attendances = player.attendances.where("fixture_id = ?", fixture.id)
-      if attendances.empty? %>
-        <td class="unsure">Unsure
+      <% if fixture.cancelled? %>
+        <td class="cancelled">Cancelled
       <% else %>
-      <td class="<%= attendances[0].will.downcase %>"><%= attendances[0].will %>
+        <% attendances = player.attendances.where("fixture_id = ?", fixture.id)
+        if attendances.empty? %>
+          <td class="unsure">Unsure
+        <% else %>
+        <td class="<%= attendances[0].will.downcase %>"><%= attendances[0].will %>
+        <% end %>
       <% end %>
     </td>
     <% end %>

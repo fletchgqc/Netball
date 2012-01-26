@@ -111,6 +111,16 @@ td.unsure {
   font-weight: bold;
 }
 
+th.cancelled a {
+  color: #777;
+}
+
+td.cancelled {
+  background-color: #ccc;
+  color: #666;
+  font-weight: bold;
+}
+
 #admin {
   margin-top: 20px;
 }

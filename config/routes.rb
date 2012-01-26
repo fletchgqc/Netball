@@ -6,7 +6,12 @@ Netball::Application.routes.draw do
     end
   end
   
-  resources :fixtures
+  resources :fixtures do
+    member do
+      post 'cancel'
+      post 'uncancel'
+    end
+  end
   
   match 'overview' => 'overview#index'
   
